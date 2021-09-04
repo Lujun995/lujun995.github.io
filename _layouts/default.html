@@ -1,25 +1,31 @@
----
-#Add "layout: compress" here to compress the html code
----
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-{% include head.html %}
+<html>
 
-<body>
-  <div class="wrapper">
-    {% include sidebar.html %}
+  <head>
+    {% include head.html %}
+    {% include scripts/mathjax.html %}
+  </head>
 
-    <div class="main-wrapper">
-        {{ content }}
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+
+    <!-- Header -->
+
+    {% include header.html %}
+
+    <!-- Content -->
+
+    <div class="container mt-5">
+      {{ content }}
     </div>
-  </div>
 
-  {% include footer.html %}
+    <!-- Footer -->
 
-{% include scripts.html %}
-</body>
+    {% include footer.html %}
+
+  </body>
+
+  {% include scripts/bootstrap.html %}
+  {% include scripts/mansory.html %}
+  {% include scripts/misc.html %}
 
 </html>
-

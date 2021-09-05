@@ -41,7 +41,7 @@ Therefore, the greatest common divisor between 17 and 12 is 1. We can also ident
 
 **Source code in Python**:
 
-~~~
+{% highlight python %}
 def solve_square_root_convergents():
     """This function is a wrapper function designed to solve the Square root convergents 
     problem (problem 57) in the ProjectEuler.
@@ -70,7 +70,7 @@ def solve_square_root_convergents():
     return count
 
 print(solve_square_root_convergents()) #153
-~~~
+{% endhighlight %}
 
 **Reference**: 
 

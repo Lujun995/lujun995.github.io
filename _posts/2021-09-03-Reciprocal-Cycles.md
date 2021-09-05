@@ -39,7 +39,7 @@ In addition, By the definition of a remainder $$r$$, $$r$$ is always less than t
 
 **Source code in Python**:
 
-~~~
+{% highlight python %}
 def solve_reciprocal_cycles():
     """"This is a wrapper function designed to solve Problem 26 (Reciprocal cycles) 
     in the ProjectEuler.
@@ -71,7 +71,7 @@ def solve_reciprocal_cycles():
             d_n_max = d
     return d_n_max
 solve_reciprocal_cycles() #983
-~~~
+{% endhighlight %}
 
 **Reference**: 
 

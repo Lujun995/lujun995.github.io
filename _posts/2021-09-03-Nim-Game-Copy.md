@@ -67,6 +67,7 @@ Therefore, we can use either $$\cdots 0 \cdots$$ or $$\cdots 10 \cdots$$ to fill
 **Source code in Python**:
 
 ~~~
+{% highlight python %}
 def f(n):
     """This function is designed to solve Nim problem (problem 301) in the ProjectEuler.
     Args:

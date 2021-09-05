@@ -38,7 +38,6 @@ In addition, By the definition of a remainder $$r$$, $$r$$ is always less than t
 **Source code in Python**:
 
 ~~~
-{% highlight python %}
 def solve_reciprocal_cycles():
     """"This is a wrapper function designed to solve Problem 26 (Reciprocal cycles) 
     in the ProjectEuler.

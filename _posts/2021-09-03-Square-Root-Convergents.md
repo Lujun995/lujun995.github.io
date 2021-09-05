@@ -5,6 +5,8 @@ subtitle: by Lucas Zhang
 tags: [projecteuler]
 ---
 
+*[Original description](https://projecteuler.net/problem=57) from the Project Euler:*
+
 It is possible to show that the square root of two can be expressed as an infinite continued fraction.
 
 $$\sqrt 2 =1+ \frac 1 {2+ \frac 1 {2 +\frac 1 {2+ \dots}}}$$

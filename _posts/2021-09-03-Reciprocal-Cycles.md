@@ -5,6 +5,8 @@ subtitle: by Lucas Zhang
 tags: [projecteuler]
 ---
 
+*[Original description](https://projecteuler.net/problem=26) from the Project Euler:*
+
 A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators 2 to 10 are given:
 
 <blockquote>

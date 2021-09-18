@@ -66,7 +66,7 @@ def unit_tests_1():
 unit_tests_1() #0, no problem
 {% endhighlight %}
 
-Thereafter, we will need some functions to examine if a number is prime or not. According to the definition of prime numbers, a prime number greater than 1 needs to be co-prime with all the prime numbers less than its square root. This is because if $$x= a \times b$$, either $$a$$ or $$b$$ would be smaller than $$\sqrt(x)$$. If $$x$$ can not be divided by a number $$a <= \sqrt(x)$$, it would neither be divided by $$b > \sqrt(x)$$. Thus, I write one function to generate the list of these prime numbers less than a given limit and one to check if the current number is prime.
+Thereafter, we will need some functions to examine if a number is prime or not. According to the definition of prime numbers, a prime number greater than 1 needs to be co-prime with all the prime numbers less than its square root. This is because if $$x= a \times b$$, either $$a$$ or $$b$$ would be smaller than $$\sqrt(x)$$. If $$x$$ can not be divided by a number $$a \leq \sqrt(x)$$, it would neither be divided by $$b > \sqrt(x)$$. Thus, I write one function to generate the list of these prime numbers less than a given limit and one to check if the current number is prime.
 
 {% highlight python %}
 def prime_list(limit):

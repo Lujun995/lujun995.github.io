@@ -25,9 +25,9 @@ Write a unit test for this final function, given that the first 10-digit prime i
 
 According to the [prime number theorem](https://en.wikipedia.org/wiki/Prime_number_theorem), the proportion of prime numbers in all 10-digit numbers are approximately 4.5%. This is because:
 
-$$\frac {1} {\ln(10^9)} \approx \frac {1} {\ln(10^10)} \approx 4.5%$$
+$$\frac {1} {\ln(10^9)} \approx \frac {1} {\ln(10^(10))} \approx 4.5\%$$
 
-As the decimal expansion of π comprises random numbers, we would expect a probability of observing at least one prime number in the first 100 digits of the decimal part of π of $$Pr = 1- (1 - 4.5%)^100 \approx 99% $$. Therefore, the first prime number would likely occur in the first 100 digits of the decimal part of π.
+As the decimal expansion of π comprises random numbers, we would expect a probability of observing at least one prime number in the first 100 digits of the decimal part of π of $$Pr = 1- (1 - 4.5\%)^100 \approx 99\% $$. Therefore, the first prime number would likely occur in the first 100 digits of the decimal part of π.
 
 As inidcated above, we firstly need to write a function to generate π with a high precision. This goal can be achieved with the library `sympy`:
 
@@ -63,10 +63,10 @@ def unit_tests_1():
     assert test2 == "2.72"
     assert test3 == "53.41"
     return 0
-unit_tests_1()
+unit_tests_1() #0, no problem
 {% endhighlight %}
 
-Thereafter, we will need some functions to examine if a number is prime or not. According to the definition of prime numbers, a prime number greater than 1 needs to be co-prime with all the prime numbers less than it. Thus, I write one function to generate the list of these prime numbers less than a given limit and one to check if the current number is prime.
+Thereafter, we will need some functions to examine if a number is prime or not. According to the definition of prime numbers, a prime number greater than 1 needs to be co-prime with all the prime numbers less than its square root. This is because if $$x= a \times b$$, either $$a$$ or $$b$$ would be smaller than $$\sqrt(x)$$. If $$x$$ can not be divided by a number $$a <= \sqrt(x)$$, it would neither be divided by $$b > \sqrt(x)$$. Thus, I write one function to generate the list of these prime numbers less than a given limit and one to check if the current number is prime.
 
 {% highlight python %}
 def prime_list(limit):
@@ -252,6 +252,7 @@ And finally solve the first prime in the deciaml expansion of 17π:
 #Here comes the final result
 print("The first prime number is", find_first_prime(exp = "17 * pi", width = 10, digit_limit = 100) )
     #with digit_limit = 100, we have >98% probability to get a prime number
+    #The first prime number is 8649375157
 {% endhighlight %}
 
 **Reference**: 

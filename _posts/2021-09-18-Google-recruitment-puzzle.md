@@ -2,7 +2,7 @@
 layout: post
 title: Google Recruitment Puzzle
 subtitle: by Lucas Zhang
-cover-img: /assets/img/Google-puzzle.png
+cover-img: /assets/img/Google-puzzle2.png
 thumbnail-img: /assets/img/Google-puzzle.png
 share-img: /assets/img/Google-puzzle.png
 tags: [Google recruitment puzzle]

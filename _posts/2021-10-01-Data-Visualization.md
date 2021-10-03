@@ -67,3 +67,103 @@ Finally, we will get a table like the follwing:
 
 ![table](/assets/img/1633223052(1).png){: .mx-auto.d-block :}
 
+After the data preparation, we begin to visualize these dateset. In `bokeh`, we will firstly direct the output to Jupyter notebook, create a canvas and then add lines and points on that canvas. An code example can be:
+
+{% highlight python %}
+#data_death visualization
+output_notebook()
+p_death = figure(title="Malaria deaths in Asia by country for all ages", width=800, height=600)
+
+#we need to render each country each time
+entities = data_death.Entity.unique()
+continent = data_death.Continent_Name.unique()
+for i in range(0, len(entities)):
+    data_death_temp = data_death[(data_death["Entity"] == entities[i]) & (data_death["Continent_Name"] == "Asia")]
+    if len(data_death_temp) == 0: continue
+    p_death.circle(data_death_temp["Year"], data_death_temp["Death_rate"], 
+                   color = tol21rainbow[(i % 21)], legend_label = entities[i])
+    p_death.line(data_death_temp["Year"], data_death_temp["Death_rate"], 
+                 color = tol21rainbow[(i % 21)], legend_label = entities[i])
+
+p_death.legend.title = 'Regions'
+show(p_death)
+{% endhighlight %}
+
+And we got the figure describing the decreasing death rates in the Asian countries in the past several decades.
+
+![bokeh_plot0](/assets/img/bokeh_plot0.png){: .mx-auto.d-block :}
+
+In similar procedures including data preparation and visualization, we can plot the three datasets subsequently:
+
+{% highlight python %}
+#to show the first several rows
+data_age.head()
+#drop those without a country code (or assigned to "Global"?)
+data_age = data_age[~(data_age["code"].isna())]
+#add continent information
+data_age = data_age.merge(right = country_continent_code, how ='left',
+                          left_on = "code", right_on = "Code")
+data_age.head()
+
+#data_age visualization
+output_notebook()
+
+p_age = figure(title="Malaria deaths under 5 in Asia by country", y_axis_type="log", width=800, height=600)
+
+#we need to render each country each time
+entities = data_age.entity.unique()
+continent = data_age.Continent_Name.unique()
+age_groups = data_age.age_group.unique()
+for i in range(0, len(entities)):
+    data_age_temp = data_age[(data_age["entity"] == entities[i]) & (data_age["Continent_Name"] == "Asia") & 
+                            (data_age["age_group"] == "Under 5")]
+    if len(data_age_temp) == 0: continue
+    p_age.circle(data_age_temp["year"], data_age_temp["deaths"], 
+                 color = tol21rainbow[(i % 21)], legend_label = entities[i])
+    p_age.line(data_age_temp["year"], data_age_temp["deaths"], 
+               color = tol21rainbow[(i % 21)], legend_label = entities[i])
+
+p_age.legend.title = 'Regions'
+show(p_age)
+
+#to show the first several rows
+data_incidence.head()
+#replace a too loooooong column name
+data_incidence.rename(columns={"Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)": "Incidence"},
+                      inplace=True)
+#drop those without a country code (or assigned to "Global"?)
+data_incidence = data_incidence[~(data_incidence["Code"].isna())]
+#add continent information
+data_incidence = data_incidence.merge(right = country_continent_code, how ='left',
+                                      left_on = "Code", right_on = "Code")
+data_incidence.head()
+
+#data_incidence visualization
+output_notebook()
+
+p_incidence = figure(title="Malaria incidence in Asia by country", y_axis_type="log",
+                     width=800, height=600)
+
+#we need to render each country each time
+entities = data_incidence.Entity.unique()
+continent = data_incidence.Continent_Name.unique()
+for i in range(0, len(entities)):
+    data_incidence_temp = data_incidence[(data_incidence["Entity"] == entities[i]) &
+                                         (data_incidence["Continent_Name"] == "Asia")]
+    if len(data_incidence_temp) == 0: continue
+    p_incidence.circle(data_incidence_temp["Year"], data_incidence_temp["Incidence"], 
+                       color = tol21rainbow[(i % 21)], legend_label = entities[i])
+    p_incidence.line(data_incidence_temp["Year"], data_incidence_temp["Incidence"], 
+                     color = tol21rainbow[(i % 21)], legend_label = entities[i])
+
+p_incidence.legend.title = 'Regions'
+show(p_incidence)
+{% endhighlight %}
+
+We will get a figure describing the trends of death induced by malaria in children under 5 years old and a figure describing the malaria incidence rate, the rate at which the population at risk contract malaria every year, measured by per 1,000 population at risk, in Asian countries over the past several decades.
+
+![bokeh_plot1](/assets/img/bokeh_plot1.png){: .mx-auto.d-block :}
+
+![bokeh_plot2](/assets/img/bokeh_plot2.png){: .mx-auto.d-block :}
+
+From these three figures, we can identify a trend that mortality rate of all ages, child mortality rate and incidence rates of malaria gradually decreased from 1990 to 2015. These results may indicate that health situation in Asian countries has been gradually improved since 1990.

@@ -5,12 +5,12 @@ subtitle: by Lucas Zhang
 tags: [Data Visualization Challenge]
 ---
 
-Is there life after graduate school? Download data of [Science and Engineering PhDs awarded in the US] (https://ncses.nsf.gov/pubs/nsf19301/data). Do some analysis in `pandas`. Make a [dashboard visualization](https://pyviz.org/dashboarding/) of a few interesting aspects of the data.
+Is there life after graduate school? Download data of [Science and Engineering PhDs awarded in the US](https://ncses.nsf.gov/pubs/nsf19301/data). Do some analysis in `pandas`. Make a [dashboard visualization](https://pyviz.org/dashboarding/) of a few interesting aspects of the data.
 
 **Solution**:
 
 Here I visualize the tables [Doctorate recipients from U.S. colleges and 
-universities: 1958–2017] (https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab001.xlsx) and [Doctorate-granting institutions, by state or location and major science and engineering fields of study: 2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx) to illustrate the overall tendencies of Doctoral recipients over years and 
+universities: 1958–2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab001.xlsx) and [Doctorate-granting institutions, by state or location and major science and engineering fields of study: 2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx) to illustrate the overall tendencies of Doctoral recipients over years and 
 accross different institutes in the U.S.
 
 To achieve the desired outcomes, we need first to set up a local Python environment for our app. Here I use [Anaconda3](https://www.anaconda.com/products/individual), which is a collection of Python packages for scientific programming, and it facilitate our package management. After the installation, we use the Spyder IDE in the Anaconda Navigator. Spyder IDE is a IPython development environment provide many handy interfaces of, for example, editing, variable exploration and project management.

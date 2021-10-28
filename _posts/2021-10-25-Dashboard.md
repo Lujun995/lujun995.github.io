@@ -5,165 +5,222 @@ subtitle: by Lucas Zhang
 tags: [Data Visualization Challenge]
 ---
 
-Create 3 informative visualizations about [malaria](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) using Python in a Jupyter notebook. Where appropriate, make the visualizations [interactive](https://jupyterbook.org/interactive/interactive.html).
+Is there life after graduate school? Download data of [Science and Engineering PhDs awarded in the US] (https://ncses.nsf.gov/pubs/nsf19301/data). Do some analysis in `pandas`. Make a [dashboard visualization](https://pyviz.org/dashboarding/) of a few interesting aspects of the data.
 
 **Solution**:
 
-The Malaria Dataset comes from a [Data Challenge](https://www.synapse.org/#!Synapse:syn16788291/wiki/583310) held by the Wellcome Trust and Sage Bionetworks, which was hosted in 2018. This dataset includes 3 subdatasets containing information of malaria incidence, overall deaths rates of all ages and death rates in different age groups across different countries and time all over the world.
+Here I visualize the tables [Doctorate recipients from U.S. colleges and 
+universities: 1958–2017] (https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab001.xlsx) and [Doctorate-granting institutions, by state or location and major science and engineering fields of study: 2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx) to illustrate the overall tendencies of Doctoral recipients over years and 
+accross different institutes in the U.S.
 
-Here I used the Python packages `pandas` to preprare the datasets and `bokeh` to create interative figures decribing the malaria conditions in Asian countries in the recent years. [bokeh](https://bokeh.org/) is a widely used open-source library to create interactive and shareable figures. It comes with a powerful toolbos which allows moving, zooming, reseting and saving the figures. 
+To achieve the desired outcomes, we need first to set up a local Python environment for our app. Here I use [Anaconda3](https://www.anaconda.com/products/individual), which is a collection of Python packages for scientific programming, and it facilitate our package management. After the installation, we use the Spyder IDE in the Anaconda Navigator. Spyder IDE is a IPython development environment provide many handy interfaces of, for example, editing, variable exploration and project management.
 
-![bokeh_illustration](/assets/img/bokeh_illustration.gif){: .mx-auto.d-block :}
+![Spyder_IDE](/assets/img/Spyder_IDE.png){: .mx-auto.d-block :}
 
-if bokeh is not installed, we need to first install it using the following code:
+![Spyder_IDE2](/assets/img/Spyder_IDE2.png){: .mx-auto.d-block :}
+
+To set up our dashboard, we need several libraries including `pandas`, `plotly.express`, `dash` and `dash_bootstrap_components`. `pandas` is a library focusing on dataset management, `plotly.express` can plot fancy figures, `dash` is used to render a website for our contents and make the figures interactive, and `dash_bootstrap_components` can provide intergated themes for `dash`.
 
 {% highlight python %}
-! python3 -m pip install --quiet bokeh
-{% endhighlight %}
+#Initialization
+work_directory = "C:\\Users\\zlj\\Desktop\\BIOSTAT 823\\HW4"
 
-After the installation, we need first to import required libraries and read in the datasets using `pandas`. I also recommend a [21-color palette](https://tradeblotter.wordpress.com/2013/02/28/the-paul-tol-21-color-salute/) to display a large dataset. In the following figures, we need a [relationship table](https://datahub.io/JohnSnowLabs/country-and-continent-codes-list) mapping coutries to their continents. 
- 
-{% highlight python %}
-#read in the data and import required modules
+import os
 import pandas as pd
-from bokeh.plotting import figure, show, output_notebook
-
-country_continent_code_url = ("https://pkgstore.datahub.io/JohnSnowLabs/country-and-continent-codes-list/"
-                              "country-and-continent-codes-list-csv_csv/data/b7876b7f496677669644f3d1069d3121/"
-                              "country-and-continent-codes-list-csv_csv.csv")
-country_continent_code = pd.read_csv(country_continent_code_url)
-country_continent_code = country_continent_code[["Continent_Name","Three_Letter_Country_Code"]]
-country_continent_code.rename(columns={"Three_Letter_Country_Code": "Code"}, inplace=True)
-
-tol21rainbow = ("#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", 
-                "#117777", "#44AAAA", "#77CCCC", "#117744", "#44AA77", "#88CCAA", 
-                "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", 
-                "#771122", "#AA4455", "#DD7788")
-
-data_death = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths.csv")
-data_age = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv")
-data_incidence = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_inc.csv")
+import plotly.express as px  
+from dash import Dash, dcc, html, Input, Output
+import dash_bootstrap_components as dbc
 {% endhighlight %}
 
-We then prepare our datasets for the data visualization. To achieve our aim, we first need to explore the dataset using *pandas.DataFrame.head()* function; thereafter, we need to merge information from malaria datasets with country-continent mapping table.
+Next, we use `pandas` to read in the data and prepare the data for more advanced visualization.
 
 {% highlight python %}
-#to show the first several rows
-data_death.head()
-country_continent_code.head()
-#drop those without a country code (or assigned to "Global"?)
-data_death = data_death[~(data_death["Code"].isna())]
-#add continent information
-data_death = data_death.merge(right = country_continent_code, how ='left',
-                              left_on = "Code", right_on = "Code")
-data_death.head()
-#the last column name is tooooooooooo long, I change the name
-data_death.rename(columns={"Deaths - Malaria - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)": "Death_rate"},
-                 inplace=True)
-data_death.head()
+#Data preparation
+os.chdir(work_directory)
+f_time = "Number of Doctorate recipients 1958–2017.xlsx"
+f_instit_majo = "Doctorate-granting institutions, by location and major fields.xlsx"
+df_time = pd.read_excel(f_time, header=[0], engine='openpyxl')
+df_demograph = pd.read_excel(f_instit_majo, header=[0, 1, 2], engine='openpyxl')
+df_demograph = df_demograph.set_index(df_demograph.columns[0])
+df_demograph = df_demograph.stack(level=0).stack(level=0).stack(level=0).reset_index()
+colnames = ["Location", "Sci/Eng", "Field", "Major", "Student Number"]
+colnames_o = list(df_demograph)
+df_demograph.rename(columns = {colnames_o[i]: colnames[i] 
+                                 for i in range(0,len(colnames_o))},
+                      inplace = True)
+for i in range(2, df_demograph.shape[1]-1):
+    index = df_demograph.iloc[:, i].str.contains("Unnamed:").values
+    df_demograph.iloc[index, i] = df_demograph.iloc[index, i - 1]
+states = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", 
+          "California", "Colorado", "Connecticut", "District ", "of Columbia", 
+          "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", "Idaho", 
+          "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", 
+          "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", 
+          "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", 
+          "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", 
+          "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", 
+          "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", 
+          "Wisconsin", "West Virginia", "Wyoming"]
+df_states = df_demograph[df_demograph.Location.isin(states)]
+df_states = df_states[df_states.Field != "All fields"]
+df_states = df_states[df_states.Major != "Total"]
+df_instit = df_demograph[ ~ df_demograph.Location.isin(states)]
+df_instit = df_instit[df_instit.Field != "All fields"]
+df_instit = df_instit[df_instit.Major != "Total"]
+df_instit = df_instit[df_instit.Location != "All institutions"]
 {% endhighlight %}
 
-Finally, we will get a table like the follwing:
-
-![table](/assets/img/1633223052(1).png){: .mx-auto.d-block :}
-
-After the data preparation, we begin to visualize these dateset. In `bokeh`, we will firstly direct the output to Jupyter notebook, create a canvas and then add lines and points on that canvas. An code example can be:
+We will also need some texts for explanations in our dashboard.
 
 {% highlight python %}
-#data_death visualization
-output_notebook()
-p_death = figure(title="Malaria deaths in Asia by country for all ages", width=800, height=600)
+#text contents
+text_header="""
 
-#we need to render each country each time
-entities = data_death.Entity.unique()
-continent = data_death.Continent_Name.unique()
-for i in range(0, len(entities)):
-    data_death_temp = data_death[(data_death["Entity"] == entities[i]) & (data_death["Continent_Name"] == "Asia")]
-    if len(data_death_temp) == 0: continue
-    p_death.circle(data_death_temp["Year"], data_death_temp["Death_rate"], 
-                   color = tol21rainbow[(i % 21)], legend_label = entities[i])
-    p_death.line(data_death_temp["Year"], data_death_temp["Death_rate"], 
-                 color = tol21rainbow[(i % 21)], legend_label = entities[i])
+**Homework 4 for BIOS 823**
 
-p_death.legend.title = 'Regions'
-show(p_death)
+*By Lucas Zhang*
+
+Is there life after graduate school?
+Download data of [Science and Engineering PhDs awarded in the US] 
+(https://ncses.nsf.gov/pubs/nsf19301/data). 
+Do some analysis in `pandas`. 
+Make a [dashboard visualization](https://pyviz.org/dashboarding/) 
+of a few interesting aspects of the data.
+
+Here I visualize the tables [Doctorate recipients from U.S. colleges and 
+universities: 1958–2017]
+(https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab001.xlsx) 
+and [Doctorate-granting institutions, by state
+or location and major science and engineering fields of study: 2017]
+(https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx)
+to illustrate the overall tendencies of Doctoral recipients over years and 
+accross different institutes in the U.S.
+
+Please also visit my [GitHub Page](https://lujun995.github.io/) and 
+[GitHub repository](https://github.com/Lujun995/BIOS823)
+"""
+text_time = """
+The figure below shows the number of PhD degree recipients rapidly increased from 1958 to 2017.
+In 1958, there are less than 9,000 PhD graduate every year all over the United States. 
+Six decades later, the number of PhD degree recipients increased to 55,000, four times more than
+in 1958.
+
+Feel free to use the slider bar below to specify a period of interest.
+"""
+text_instit = """
+The figure below shows the number of PhD recipients in different majors in 2017. In the
+dropdown box below, you can select institutes of interest. If the box is clear, you select
+all the records.
+
+What are the distribution of majors of PhD graduates from Duke, Harvard and 
+MIT in 2017? Type Duke, Harvard and Massachusetts Institute of Technology in the box and 
+select the corresponding institutes. Is what you find in line with your impression?
+
+From the sunburst graph below, we can find that while a lot of PhD recipients graduated from 
+all the three institutes in 2017, Harvard grants the most PhD degrees in life science and MIT 
+is the winner in engineering.
+"""
 {% endhighlight %}
 
-And we got the figure describing the decreasing death rates in the Asian countries in the past several decades.
+Thereafter, we can start to build our layout of our dashboard. In `dash`, we can use some Python-like code to build HTML-based website. Here, we use an integrated theme "MINTY" in `dash_bootstrap_components` to help us build a beautiful dashboard. While full documentation of `dash` can be found [here](https://dash.plotly.com/), in a nutshell, we need 
 
-![bokeh_plot0](/assets/img/bokeh_plot0.png){: .mx-auto.d-block :}
+1. Set up the server with "Dash" function and apply our theme MINTY
+2. Set up the layout using a HTML-like Python
+3. If we want to create interative items, we need to add these items in the layout and also specify an "id" so the server can recognize these items. In `dash` dcc (dash core components), there are several items which can accpet value from the users input, such as "Slider", "RangeSlider", multiple choice or single choice "Dropdown" box. There are also some items which contains our text-rich contents and figures, such as "Markdown" and "Graph".
+4. Update the interactive items with our specific Python function, which accepts input from "dash.dcc" and output them back into our dashboard.
+5. Run the server and we can visit our website at http://127.0.0.1:8050/
 
-In similar procedures including data preparation and visualization, we can plot the three datasets subsequently:
+Here comes the Python code for each step:
 
 {% highlight python %}
-#to show the first several rows
-data_age.head()
-#drop those without a country code (or assigned to "Global"?)
-data_age = data_age[~(data_age["code"].isna())]
-#add continent information
-data_age = data_age.merge(right = country_continent_code, how ='left',
-                          left_on = "code", right_on = "Code")
-data_age.head()
-
-#data_age visualization
-output_notebook()
-
-p_age = figure(title="Malaria deaths under 5 in Asia by country", y_axis_type="log", width=800, height=600)
-
-#we need to render each country each time
-entities = data_age.entity.unique()
-continent = data_age.Continent_Name.unique()
-age_groups = data_age.age_group.unique()
-for i in range(0, len(entities)):
-    data_age_temp = data_age[(data_age["entity"] == entities[i]) & (data_age["Continent_Name"] == "Asia") & 
-                            (data_age["age_group"] == "Under 5")]
-    if len(data_age_temp) == 0: continue
-    p_age.circle(data_age_temp["year"], data_age_temp["deaths"], 
-                 color = tol21rainbow[(i % 21)], legend_label = entities[i])
-    p_age.line(data_age_temp["year"], data_age_temp["deaths"], 
-               color = tol21rainbow[(i % 21)], legend_label = entities[i])
-
-p_age.legend.title = 'Regions'
-show(p_age)
-
-#to show the first several rows
-data_incidence.head()
-#replace a too loooooong column name
-data_incidence.rename(columns={"Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)": "Incidence"},
-                      inplace=True)
-#drop those without a country code (or assigned to "Global"?)
-data_incidence = data_incidence[~(data_incidence["Code"].isna())]
-#add continent information
-data_incidence = data_incidence.merge(right = country_continent_code, how ='left',
-                                      left_on = "Code", right_on = "Code")
-data_incidence.head()
-
-#data_incidence visualization
-output_notebook()
-
-p_incidence = figure(title="Malaria incidence in Asia by country", y_axis_type="log",
-                     width=800, height=600)
-
-#we need to render each country each time
-entities = data_incidence.Entity.unique()
-continent = data_incidence.Continent_Name.unique()
-for i in range(0, len(entities)):
-    data_incidence_temp = data_incidence[(data_incidence["Entity"] == entities[i]) &
-                                         (data_incidence["Continent_Name"] == "Asia")]
-    if len(data_incidence_temp) == 0: continue
-    p_incidence.circle(data_incidence_temp["Year"], data_incidence_temp["Incidence"], 
-                       color = tol21rainbow[(i % 21)], legend_label = entities[i])
-    p_incidence.line(data_incidence_temp["Year"], data_incidence_temp["Incidence"], 
-                     color = tol21rainbow[(i % 21)], legend_label = entities[i])
-
-p_incidence.legend.title = 'Regions'
-show(p_incidence)
+#Step 1, Set up the server
+app = Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
 {% endhighlight %}
 
-We will get a figure describing the trends of death induced by malaria in children under 5 years old and a figure describing the malaria incidence rate, the rate at which the population at risk contract malaria every year, measured by per 1,000 population at risk, in Asian countries over the past several decades.
 
-![bokeh_plot1](/assets/img/bokeh_plot1.png){: .mx-auto.d-block :}
+{% highlight python %}
+#Step 2 & 3, Set up the layout & Specify interactive items in the layout
+app.layout = html.Div([
+    dbc.Container([
+        dbc.Row([
+            dbc.Col(html.H1(children="How many PhDs students graduate in the U.S. every year?"), 
+                    className="mb-2")
+        ]),
+        dbc.Row([
+            dbc.Col(dcc.Markdown(children=text_header), 
+                    className="mb-4")
+        ]),
+        html.Hr(), #a thematic break between paragraph-level elements
+        
+        dbc.Row([
+            dbc.Col(html.H3(children="Number of PhD Graduates over Years in the U.S."), 
+                    className="mb-2")
+        ]),
+        dbc.Row([
+            dbc.Col(dcc.Markdown(children=text_time), 
+                    className="mb-4")
+        ]),
+        dcc.Graph(id = 'fig_time'),
+        dcc.RangeSlider(id = "year_range", step = 1, 
+                        min = df_time['Year'].min(), max=df_time['Year'].max(),
+                        value = [df_time['Year'].min(), df_time['Year'].max()],
+                        updatemode = "drag", pushable = True,
+                        marks = {str(year): str(year) 
+                                 for year in range(df_time['Year'].min(),
+                                                   df_time['Year'].max(), 10)}
+                        ),
+        html.Hr(),
+        
+        dbc.Row([
+            dbc.Col(html.H3(children="Number of PhD Graduates over Different Majors in the U.S."), 
+                    className="mb-2")
+        ]),
+        dbc.Row([dbc.Col(dcc.Markdown(children=text_instit), className="mb-4")]),
+        dcc.Dropdown(id = "instit_choice", value=["Duke U."], multi=True,
+                     options=[{"label": sch, "value": sch} for sch in df_instit.Location.unique()],
+                     placeholder="All institutes"),
+        dcc.Graph(id = 'fig_instit', style={'width': '90vh', 'height': '90vh'}),
+        html.Hr(),
+        
+    ])
+])
+{% endhighlight %}
 
-![bokeh_plot2](/assets/img/bokeh_plot2.png){: .mx-auto.d-block :}
+{% highlight python %}
+#Step 4, Interactive Figures
+@app.callback(Output("fig_time", "figure"), Input("year_range", "value"))
+def ifig_time(years): #this seems directly related to the callback on the above
+    df_time_ranged = df_time[(df_time["Year"] >= years[0]) &
+                             (df_time["Year"] <= years[1])]
+    fig_time = px.line(df_time_ranged, x="Year", y="Doctorate recipients", 
+                       template = "simple_white", markers = True)
+    fig_time.update_layout(transition_duration=500)
+    return fig_time
+#the number of graduates seems to be related to the GDP growth rate
 
-From these three figures, we can identify a trend that mortality rate of all ages, child mortality rate and incidence rates of malaria gradually decreased from 1990 to 2015. These results may indicate that health situation in Asian countries has been gradually improved since 1990.
+@app.callback(Output("fig_instit", "figure"), Input("instit_choice", "value"))
+def ifig_instit(schools):
+    if len(schools) == 0:
+        df_instit_s = df_instit
+    else:
+        df_instit_s = df_instit[df_instit.Location.isin(schools)]
+    df_instit_s = df_instit_s.groupby(["Field", "Major"]).sum().reset_index()
+    fig_instit = px.sunburst(df_instit_s, path = ['Field', 'Major'], 
+                             values = "Student Number", color = "Field",
+                             template = "simple_white")
+    fig_instit.update_layout(transition_duration=500)
+    return fig_instit
+{% endhighlight %}
+
+{% highlight python %}
+#Step 5, Run the server and visit our website at http://127.0.0.1:8050/
+if __name__ == '__main__':
+    app.run_server(debug=True)
+{% endhighlight %}
+
+Run the Python file using "runfile", and the following is an illustration of our dashboard:
+
+
+![Illustrate](/assets/img/zoom_1.gif){: .mx-auto.d-block :}
+
+

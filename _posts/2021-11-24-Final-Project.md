@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Disentangling Key Indicators for Patients' Mortality Rate in Intensive Care Units
-subtitle: By Team ABC (**A**shley Hu, **B**etty Wu, and Lu**C**as Zhang)
+subtitle: By Team ABC (Ashley Hu, Betty Wu, and LuCas Zhang)
 cover-img: /assets/img/ICU.jpg
 thumbnail-img: /assets/img/ICU.jpg
 share-img: /assets/img/ICU.jpg

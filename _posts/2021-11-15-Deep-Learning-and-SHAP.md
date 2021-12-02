@@ -5,6 +5,8 @@ subtitle: by Lucas Zhang
 tags: [Data Visualization Challenge]
 ---
 
+{: .box-warning} Warning for Sensitive Contents! This post contains photos of bugs. If you are sensitive about insects, please close the tab immediately!
+
 ### Dive into Deep Learning
 
 *Lucas Zhang*

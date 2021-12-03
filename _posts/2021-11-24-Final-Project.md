@@ -12,18 +12,18 @@ tags: [Final Project]
 
 # 1. Introduction
 
-Predicting patients’ in-hospital mortality is a area of active research. Accurate predictions of clinical outcome enables clinicians to gauge patients condition and facilitate cost-effective management of hospital resources. Given the importance of this issue, in this project we are interested in **using a large-scale, high-resolution MIMIC-III data to predict in-hospital mortality**. Cleaning EHR data and defining the variables of interest as the first step lay the foundation of successful modelling in our project. **Particularly, I participated in the final project largely through data cleaning and creating documentation.** Here I focus on sharing my thoughts of data cleaning.
+Predicting patients’ in-hospital mortality is an area of active research. Accurate predictions of clinical outcomes enable clinicians to gauge patients' conditions and facilitate cost-effective management of hospital resources. Given the importance of this issue, in this project we are interested in **using a large-scale, high-resolution MIMIC-III dataset to predict in-hospital mortality**. Cleaning EHR data and defining the variables of interest as the first step lay the foundation of successful modeling in our project. **Particularly, I participated in the final project largely through data cleaning and creating documentation.** Here I focus on sharing my thoughts on data cleaning.
 
-Please also visit our [GitHub repository](https://github.com/JiamanBettyWu/bios823_project) for accessing source code.
+Please also visit our [GitHub repository](https://github.com/JiamanBettyWu/bios823_project) for accessing the source code.
 
 # 2. Data Description
 
 ### 2.1. Data collection
 
-The dataset MIMIC III (Medical Information Mart for Intensive Care) is used in our proejct. MIMIC III is a single-center database concerning  patient admissions to critical care units. While full description can be found from [physionet.org](https://physionet.org/content/mimiciii/1.4/), the database incorprated several data sources, including:
+The dataset MIMIC III (Medical Information Mart for Intensive Care) is used in our project. MIMIC III is a single-center database concerning patient admissions to critical care units. While full description can be found from [physionet.org](https://physionet.org/content/mimiciii/1.4/), the database incorporated several data sources, including:
 
 - critical care information systems:
-    - Two different systems: Philips **CareVue** and iMDsoft **MetaVision** ICU. Most of data from the two systems was merged expect for fluid intake. The data that are not merged will be given a suffix to distinguish the data source, e.g. "*CV*" for CareVue and "*MV*" for MetaVision. These two systems provided clinical data including:
+    - Two different systems: Philips **CareVue** and iMDsoft **MetaVision** ICU. Most of the data from the two systems were merged except for fluid intake. The data that are not merged will be given a suffix to distinguish the data source, e.g. "*CV*" for CareVue and "*MV*" for MetaVision. These two systems provided clinical data including:
         - physiological measurements, e.g. heart rate, arterial blood pressure, or respiratory rate;
         - documented progress notes by care providers;
         - drip medications and fluid balances.
@@ -55,17 +55,17 @@ Deidentified using *structured data cleansing* and *date shifting*.
 - Five tables track **patient stays**: ADMISSIONS; PATIENTS; ICUSTAYS; SERVICES; and TRANSFERS
 - Another five tables are **dictionaries** (prefixed with ‘D_’): D_CPT; D_ICD_DIAGNOSES; D_ICD_PROCEDURES; D_ITEMS; and D_LABITEMS. 
     - Dictionary tables: Definitions for identifiers. E.g. ITEMID in CHARTEVENTS is explained in D_ITEMS, which represents the concept measured.
-- The remaining tables associated with patient care, such as physiological measurements, caregiver observations, and billing information.
+- The remaining tables are associated with patient care, such as physiological measurements, caregiver observations, and billing information.
 - **‘Events’ tables**: a series of charted events such as notes, laboratory tests, and fluid balance. e.g. the OUTPUTEVENTS table: all measurements related to output for a given patient, the LABEVENTS table: laboratory test results for a patient.
 
 
 # 3. Variables of Interest (Variable Definition)
 
-Several kinds of variables may be of particular interest for the model construction, including ID variable, output and input variable. The ID variables are used as the primary keys which contain unqiue values for identification and are used to link records across different data sources throughout the MIMIC database. The output variable should indicate the clinical outcomes of each patient after his or her hospitalization. We use a Boolean variable as the model output. The input variables are typically the variables which we consider may relate to the clinical outcome, such as demographic information (e.g. age), the duration in the ICU, laboratory test results, and whether the patient has entered the ICU before. A detailed definition can be found in the list below.
+Several kinds of variables may be of particular interest for the model construction, including ID variable, output and input variable. The ID variables are used as the primary keys which contain unique values for identification and are used to link records across different data sources throughout the MIMIC database. The output variable should indicate the clinical outcomes of each patient after his or her hospitalization. We use a Boolean variable as the model output. The input variables are typically the variables that we consider may relate to the clinical outcome, such as demographic information (e.g. age), the duration in the ICU, laboratory test results, and whether the patient has entered the ICU before. A detailed definition can be found in the list below.
 
 ### 3.1. ID Variables
 - SUBJECT_ID: ID variable obtained from *ADMISSIONS.csv*. One unique subject id was assigned to each patient.
-- HADM_ID: ID variable obtained from *ADMISSIONS.csv*. **Primary key**. One unique Hospital ADMinistration ID (HADM_ID) was assgined to each hopspitalization of one patient, while multiple HADM_ID may correspond to the same person.
+- HADM_ID: ID variable obtained from *ADMISSIONS.csv*. **Primary key**. One unique Hospital ADMinistration ID (HADM_ID) was assigned to each hospitalization of one patient, while multiple HADM_ID may correspond to the same person.
 - ADMITTIME: datetime variable obtained from *ADMISSIONS.csv*. This variable records the time when the hospitalization started.
 - DISCHTIME: datetime variable obtained from *ADMISSIONS.csv*. This variable records the time when the hospitalization ended.
 
@@ -77,12 +77,12 @@ Several kinds of variables may be of particular interest for the model construct
 - DIAGNOSIS: string variable obtained from *ADMISSIONS.csv*.
 - GENDER: categorical variable obtained from *PATIENTS.csv* via joining on SUBJECT_ID. **Demographic information**. 
 - DOB: datetime variable obtained from *PATIENTS.csv* via joining on SUBJECT_ID. **Demographic information**. 
-- AGE_ON_AD: numeric variable derived from DOB and ADMITTIME. **Demographic information**. This variable represents the patients' age on administration. An age greater than 300 indicates patients' age greater than 89.
+- AGE_ON_AD: numeric variable derived from DOB and ADMITTIME. **Demographic information**. This variable represents the patients' age on administration. Age greater than 300 indicates patients' age greater than 89.
 - SERVICES: multi-valued categorical variable obtained from *SERVICES.csv* via joining on SUBJECT_ID and HADM_ID. This variable indicates services that the patients utilized during hospitalization.
-- ICU_STAY_DAYS: numeric variable derived from *ICUSTAY.csv*. This variable presents total days of ICU stays during this hospitalization.
-- MULTI_ENTRY_ICU: Boolean variable derived from *ICUSTAY.csv*. MULTI_ENTRY_ICU is set True if patients have entered the ICU before this hospitlization. 
+- ICU_STAY_DAYS: numeric variable derived from *ICUSTAY.csv*. This variable presents the total days of ICU stays during this hospitalization.
+- MULTI_ENTRY_ICU: Boolean variable derived from *ICUSTAY.csv*. MULTI_ENTRY_ICU is set True if patients have entered the ICU before this hospitalization. 
 - ICD9_code: ten Boolean variables derived from *PROCEDURES_ICD.csv* via joining on SUBJECT_ID and HADM_ID. These variables provided information on the ten most frequent procedures associated with hospitalization.
-- TOTAL_ITEMID_code: twenty integer variables derived from *LABEVENTS.csv* via joining on SUBJECT_ID and HADM_ID. These variables provided information on the twenty most frequent lab tests during hospitalization. TOTAL_ITEMID_code indicates how many times the lab test have been carried out in each hospitalization.
+- TOTAL_ITEMID_code: twenty integer variables derived from *LABEVENTS.csv* via joining on SUBJECT_ID and HADM_ID. These variables provided information on the twenty most frequent lab tests during hospitalization. TOTAL_ITEMID_code indicates how many times the lab test has been carried out in each hospitalization.
 - ABNORMAL_ITEMID_code: twenty integer variables derived from *LABEVENTS.csv* via joining on SUBJECT_ID and HADM_ID. Different from TOTAL_ITEMID_code, ABNORMAL_ITEMID_code indicates how many lab tests of this kind were abnormal.
 
 ### 3.4. ICD9 Code:
@@ -145,9 +145,9 @@ lab_results<- read_csv("/work/physionet.org/files/mimiciii/1.4/LABEVENTS.csv.gz"
 hospital_proc <- read_csv("/work/physionet.org/files/mimiciii/1.4/PROCEDURES_ICD.csv.gz")
 
 # in the following code, we are going to generate the ICU_STAY_DAYS and the MULTI_ENTRY_ICU variables
-# ICU_STAY_DAYS is total days for which one patient stay in the ICU during one period of hopitalization
-# MULTI_ENTRY_ICU is set to TRUE if the subject has entered ICU before this hopitalization according to our
-#records. To accomplish this goal, we need a subquery to define record for the first ICU entry.
+# ICU_STAY_DAYS is the total days for which one patient stay in the ICU during one period of hospitalization
+# MULTI_ENTRY_ICU is set to TRUE if the subject has entered ICU before this hospitalization according to our
+#records. To accomplish this goal, we need a subquery to define the record for the first ICU entry.
 ICUstays %>% group_by(SUBJECT_ID, HADM_ID) %>%
   summarise(ICU_STAY_DAYS = sum(LOS)) %>% 
   mutate(MULTI_ENTRY_ICU = !(HADM_ID %in% 
@@ -178,11 +178,11 @@ hospital_proc %>% filter( ICD9_CODE %in%
 
 
 #it appears that the lab_results will not have an hadm_id if 
-#recorded before/after the hopitalization
-#I may need to seperate them into before, during, after tables
-#here I only consider the results during the hopitalization
+#recorded before/after the hospitalization
+#I may need to separate them into before, during, after tables
+#here I only consider the results during the hospitalization
 #it's hard to define what is the record prior to hospitalization
-#Will 3-day period work?
+#Will a 3-day period work?
 
 # As for the lab test results, we have the same problem with icd9 code because
 #there are too many different kinds of lab tests. We also select the top 20 
@@ -236,4 +236,4 @@ left_join(x= temp, y = lab_results_during_df,
 write_csv(temp, path = "~/MIMIC_cleaned.csv")
 {% endhighlight %}
 
-The final .csv file contains ~60,000 records and have a size of ~23 MB, compared to an oringinal size of more than 50GB. Each record stands for one hospitalization indexed by a unqiue HADM_ID and have a detailed description of demographic information, ICU_stays information, lab test results and hospitalization information (ICD9_code). This table is now ready for constructing a machine learning model.
+The final .csv file contains ~60,000 records and has a size of ~23 MB, compared to an original size of more than 50GB. Each record stands for one hospitalization indexed by a unique HADM_ID and has a detailed description of demographic information, ICU_stays information, lab test results, and hospitalization information (ICD9_code). This table is now ready for constructing a machine learning model.

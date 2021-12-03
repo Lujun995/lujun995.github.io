@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Deep Learning and Model Interpretaion using SHAP
+title: Deep Learning and Model Interpretation using SHAP
 subtitle: by Lucas Zhang
 tags: [Data Visualization Challenge]
 ---
@@ -49,7 +49,7 @@ test = [f for f in glob.glob('insects/test/*/*.jpg')]
 print("We have", len(test), "figures in the \'test\' folder")
 {% endhighlight %}
 
-It shows we have 1019 figures in the 'train' folder and 180 figures in the 'test' folder. Next, we may want to see a few example photos of beetles, cockroach and dragonflies in our dataset.
+It shows we have 1019 figures in the 'train' folder and 180 figures in the 'test' folder. Next, we may want to see a few example photos of beetles, cockroaches and dragonflies in our dataset.
 
 {% highlight python %}
 beetles = list(glob.glob('insects/train/beetles/*.jpg'))
@@ -72,9 +72,9 @@ PIL.Image.open(str(dragonflies[175]))
 
 ![Illustrate](/assets/img/dragonfly175.png){: .mx-auto.d-block :}
 
-### Configure the neutral network model
+### Configure the neural network model
 
-We need to set the training dataset (using the photos in "train" folder) and test dataset (using the "test" folder) for our neutral network model. Here we use functions in `tensorflow.keras` to help set up the configuration. We first set the training set and test set, and check the names of the 3 classes in our dataset. 
+We need to set the training dataset (using the photos in the "train" folder) and the test dataset (using the "test" folder) for our neural network model. Here we use functions in `tensorflow.keras` to help set up the configuration. We first set the training set and test set, and check the names of the 3 classes in our dataset. 
 
 {% highlight python %}
 train_ds = tf.keras.utils.image_dataset_from_directory(directory = "insects/train")
@@ -95,7 +95,7 @@ class_names = train_ds.class_names
 print(class_names)
 {% endhighlight %}
 
-We found 1021 files belonging to 3 classes in the 'train' folder and 187 files belonging to 3 classes in the 'test' folder, and theses photos are ['beetles', 'cockroach', 'dragonflies']. Next, we display some photos in our training dataset.
+We found 1021 files belonging to 3 classes in the 'train' folder and 187 files belonging to 3 classes in the 'test' folder, and these photos are ['beetles', 'cockroach', 'dragonflies']. Next, we display some photos in our training dataset.
 
 {% highlight python %}
 import matplotlib.pyplot as plt
@@ -111,9 +111,9 @@ for images, labels in train_ds.take(1):
 
 ![Illustrate](/assets/img/9visuals.png){: .mx-auto.d-block :}
 
-### Train the neutral network model
+### Train the neural network model
 
-In this section, we will set up buffer for our model, convert the color scale [0, 255] to (0, 1) scale, set up layers for the neutral network model and finally, learn the parameters in our neutral network model.
+In this section, we will set up a buffer for our model, convert the color scale [0, 255] to (0, 1) scale, set up layers for the neural network model and finally, learn the parameters in our neural network model.
 
 {% highlight python %}
 #this is to create buffer for our model
@@ -124,7 +124,7 @@ val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 #we convert the color value to (0, 1) scale
 normalization_layer = layers.Rescaling(1./255)
 
-#set up the layers in the neutral network
+#set up the layers in the neural network
 num_classes = 3
 
 model = Sequential([
@@ -146,13 +146,13 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 {% endhighlight %}
 
-After these steps, we can check the properties of different layers in our neutral network.
+After these steps, we can check the properties of different layers in our neural network.
 
 {% highlight python %}
 model.summary()
 {% endhighlight %}
 
-It shows we have a total of 8,412,707 trainable parameters in our model. Thereafter, we are about to learn the parameters in the model or namely, to train the nuetral network.
+It shows we have a total of 8,412,707 trainable parameters in our model. Thereafter, we are about to learn the parameters in the model or namely, to train the neural network.
 
 {% highlight python %}
 epochs = 5
@@ -165,7 +165,7 @@ history = model.fit(
 
 ### Quality-checking
 
-In this section, we will exam our model using the "test" dataset. A good model should have high training accuracy and low loss, but we should also avoid over-fitting. An overfitting occurs if model on training set is much better than the test set.
+In this section, we will exam our model using the "test" dataset. A good model should have high training accuracy and low loss, but we should also avoid over-fitting. Overfitting occurs if the model on the training set is much better than the test set.
 
 In addition to the statistics, we will also check if our trained model can successfully identify the insect in some figures provided in the test folder or on the internet.
 
@@ -195,7 +195,7 @@ plt.show()
 
 ![Illustrate](/assets/img/accuracy_and_loss.png){: .mx-auto.d-block :}
 
-These figures show that our model work well on both training and test datasets with a high accuracy and low loss. We will next test our model with some real examples, including one  specific photo in our dataset and one from the internet.
+These figures show that our model works well on both training and test datasets with high accuracy and low loss. We will next test our model with some real examples, including one specific photo in our dataset and one from the internet.
 
 {% highlight python %}
 dragonflies = list(glob.glob('insects/test/dragonflies/*.jpg'))
@@ -240,7 +240,7 @@ It shows "This image most likely belongs to dragonflies with a 99.93 percent con
 
 # Explain our model using SHAP
 
-In the follwing section, we would like to explain how our model works. We will calculate the SHAP value for different part in one of our previous figure. Source code adapted from [h1ros](https://h1ros.github.io/posts/explain-the-prediction-for-imagenet-using-shap/).
+In the following section, we would like to explain how our model works. We will calculate the SHAP value for a different part in one of our previous figures. Source code adapted from [h1ros](https://h1ros.github.io/posts/explain-the-prediction-for-imagenet-using-shap/).
 
 ### Initialization
 
@@ -296,7 +296,7 @@ plt.axis('off');
 
 ### Divide the picture into different parts
 
-We may want to divide the picture to different parts to see which part plays an important role in our model.
+We may want to divide the picture into different parts to see which part plays an important role in our model.
 
 {% highlight python %}
 # Create segmentation to explain by segment, not every pixel

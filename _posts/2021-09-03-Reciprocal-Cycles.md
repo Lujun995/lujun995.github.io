@@ -27,13 +27,13 @@ Find the value of $$d < 1000$$ for which $$\frac {1}{d}$$ contains the longest r
 
 **Solution**:
 
-The length of the reciporal cycles equals to the length of remainder cycles. Namely, the number of steps that remainders take to get back to a remainder that previously occurs. Taking $$\frac {1}{7}$$ as an example, its remainders are
+The length of the reciprocal cycles equals the length of the remainder cycles. Namely, the number of steps that remainders take to get back to a remainder that previously occurs. Taking $$\frac {1}{7}$$ as an example, its remainders are
 
 $$10 \div 7 = 1 \cdots 3$$, 
 
 $$30 \div 7 = 4 \cdots 2$$..., 
 
-and the remainders go as $$ 3 \Rightarrow 2 \Rightarrow 6 \Rightarrow 4 \Rightarrow 5 \Rightarrow 1 \Rightarrow 3 ...$$. Therefore, we can count the length of remainder cycles to calculate the length of the reciporal cycles.
+and the remainders go as $$ 3 \Rightarrow 2 \Rightarrow 6 \Rightarrow 4 \Rightarrow 5 \Rightarrow 1 \Rightarrow 3 \Rightarrow 2 ...$$. Note the recurrence of 3 and 2. Therefore, we can count the length of remainder cycles to calculate the length of the reciporal cycles.
 
 In addition, By the definition of a remainder $$r$$, $$r$$ is always less than the dividor $$d$$. Therefore, $$d$$ can only have $$d$$ different remainders, *i.e.* $$0, 1, ..., d - 1$$. Accoringly, by the [pigeonhole principle](https://en.wikipedia.org/wiki/Pigeonhole_principle), when the length $$n$$ of the reciprocal cycles of $$d$$ would be shorter than $$d$$. Ohterwise, for any $$n^\prime > d$$, we can always identify a digit equal to a previous remainder so the remainders enter a cycle.
 

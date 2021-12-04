@@ -10,7 +10,7 @@ tags: [Google recruitment puzzle]
 
 Find the first 10-digit prime in the decimal expansion of 17π. 
 
-The first 5 digits in the decimal expansion of π are 14159. The first 4-digit prime in the decimal expansion of π are 4159. You are asked to find the first 10-digit prime in the decimal expansion of 17π. First solve sub-problems (divide and conquer):
+The first 5 digits in the decimal expansion of π are 14159. The first 4-digit prime in the decimal expansion of π is 4159. You are asked to find the first 10-digit prime in the decimal expansion of 17π. First, solve sub-problems (divide and conquer):
 
 - Write a function to generate an arbitrary large expansion of a mathematical expression like π. Hint: You can use the standard library `decimal` or the 3rd party library `sympy` to do this
 - Write a function to check if a number is prime. Hint: See Sieve of Eratosthenes
@@ -29,7 +29,7 @@ $$\frac {1} {\ln(10^9)} \approx \frac {1} {\ln(10^{10})} \approx 4.5\%$$
 
 As the decimal expansion of π comprises random numbers, we would expect a probability of observing at least one prime number in the first 100 digits of the decimal part of π of $$Pr = 1- (1 - 4.5\%)^{100} \approx 99\% $$. Therefore, the first prime number would likely occur in the first 100 digits of the decimal part of π.
 
-As inidcated above, we firstly need to write a function to generate π with a high precision. This goal can be achieved with the library `sympy`:
+As indicated above, we first need to write a function to generate π with high precision. This goal can be achieved with the library `sympy`:
 
 {% highlight python %}
 #! python3 -m pip install --quiet sympy
@@ -47,14 +47,14 @@ def value_generator(exp, digits):
     return(value)
 {% endhighlight %}
 
-With `sympy`, we can evaluate the value of a mathmatical expression to any digit we want:
+With `sympy`, we can evaluate the value of a mathematical expression to any digit we want:
 
 {% highlight python %}
 def unit_tests_1():
     '''This function is to test if other functions go well
     
         RETURN:
-            If all functions go in correct direction, return 0.
+            If all functions are on the right track, return 0.
     '''
     test1 = str(value_generator("pi", 1+2)) #"3.14", 1+2 means 1 digit for integer part and 2 digits for the decimal part.
     test2 = str(value_generator("E", 1+2)) #"2.72"
@@ -96,12 +96,12 @@ def prime_list(limit):
     return prime_table
 
 def prime_checker(number, prime_table = None):
-    '''This function is to check if a given number is coprime with number in the prime_table. If 
-    prime_table is not given, it returns whether the number is prime or nor.
+    '''This function is to check if a given number is coprime with the number in the prime_table. If 
+    prime_table is not given, it returns whether the number is prime or not.
         PARAMETER:
             number: an integer required to be checked if prime
             prime_table: a list of primes given to check if the number is co-prime with them.
-            Using this argument with caution: all the element should be prime numbers less
+            Using this argument with caution: all the elements should be prime numbers less
             than "number"
         RETURN:
             flag: boolean, if the number is prime, return TRUE, otherwise FALSE
@@ -143,7 +143,7 @@ def unit_tests_2():
     '''This function is to test if other functions go well
     
         RETURN:
-            If all functions go in correct direction, return 0.
+            If all functions are on the right track, return 0.
     '''
     test4 = prime_list(5)
     test5 = prime_list(10)
@@ -175,7 +175,7 @@ def unit_tests_2():
 unit_tests_2() #0, no problem
 {% endhighlight %}
 
-With the help of these functions, we finally need to write a wrapper function that integrates these parts and create a sliding windows along the decimal expansion of π.
+With the help of these functions, we finally need to write a wrapper function that integrates these parts and create a sliding window along the decimal expansion of π.
 
 {% highlight python %}
 def find_first_prime(exp, width, digit_limit):
@@ -183,10 +183,10 @@ def find_first_prime(exp, width, digit_limit):
     expansion of a math expression "exp"
         PARAMETERs:
             exp: string, a math expression to be evaluated, e.g. "17 * pi"
-            width: intger, the digits of prime that we are look for, e.g. 10
-            digit_limit: intger, the function will be stopped if reaching a digit limit of 
-                digit_limit, e.g., digit_limit = 100 means the funtion will stopped 
-                at the 100th decimal digit if a prime number have not been found.
+            width: integer, the digits of prime that we are looking for, e.g. 10
+            digit_limit: integer, the function will be stopped if reaching a digit limit of 
+                digit_limit, e.g., digit_limit = 100 means the function will stopped 
+                at the 100th decimal digit if a prime number has not been found.
         RETURN:
             number: the first prime number in the decimal expansion of "exp". If None, meaning
                 no prime number has been found before reaching "digit_limit"
@@ -221,7 +221,7 @@ def unit_tests_3():
     '''This function is to test if other functions go well
     
         RETURN:
-            If all functions go in correct direction, return 0.
+            If all functions are on the right track, return 0.
     '''
     
     test14 = find_first_prime(exp = "E", width = 1, digit_limit = 5) 
@@ -258,4 +258,3 @@ print("The first prime number is", find_first_prime(exp = "17 * pi", width = 10,
 **Reference**: 
 
 Prime number theorem. https://en.wikipedia.org/wiki/Prime_number_theorem.
-

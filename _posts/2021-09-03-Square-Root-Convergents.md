@@ -27,9 +27,9 @@ In the first one-thousand expansions, how many fractions contain a numerator wit
 
 **Solution**: 
 
-By observation of the construction of this number sequence, we can identify that a new denominator come from the sum of its prior numerator and denominator, while a new numerator comes from the sum of the prior denominator and the new denominator. For example, for the first fraction, we have $$\frac {3}{2}$$. For the second fraction, we have $$\frac {2+(3+2)}{3+2}$$.
+By observation of the construction of this number sequence, we can identify that a new denominator comes from the sum of its prior numerator and denominator, while a new numerator comes from the sum of the prior denominator and the new denominator. For example, for the first fraction, we have $$\frac {3}{2}$$. For the second fraction, we have $$\frac {2+(3+2)}{3+2}$$.
 
-Also because of this construction, by [the Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm), we can show that all the pairs of numerators and denominators in this sequence are coprime, i.e. no common divisor greater than 1 exists between the numerator and the denaminator. For example, regarding the third fraction $$\frac {17}{12}$$, 
+Also because of this construction, by [the Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm), we can show that all the pairs of numerators and denominators in this sequence are coprime, i.e. no common divisor greater than 1 exists between the numerator and the denominator. For example, regarding the third fraction $$\frac {17}{12}$$, 
 
 $$17 = 12+5$$
 
@@ -37,7 +37,7 @@ $$12 = 5 \times 2 + 2 = 5 + 7$$
 
 $$5 = 2 \times 2 + 1 = 2+3$$
 
-Therefore, the greatest common divisor between 17 and 12 is 1. We can also identify the numerators and denominators of the first and the second fractions in this process of Euclidean algorithm. It follows that all the numerators and denominators in fractions in the sequence have a greatest common divisor of 1 by mathematical induction. Namely, all the pairs of numerators and denominators in this sequence are coprime so we do not need to consider the reduction of the fractions. Therefore, we can use data types of double instead of a very long integer as it provides sufficient precision. 
+Therefore, the greatest common divisor between 17 and 12 is 1. We can also identify the numerators and denominators of the first and the second fractions in this process of the Euclidean algorithm. It follows that all the numerators and denominators in fractions in the sequence have a greatest common divisor of 1 by mathematical induction. Namely, all the pairs of numerators and denominators in this sequence are coprime so we do not need to consider the reduction of the fractions. Therefore, we can use data types of double instead of a very long integer as it provides sufficient precision. 
 
 **Source code in Python**:
 
@@ -47,7 +47,7 @@ def solve_square_root_convergents():
     problem (problem 57) in the ProjectEuler.
     
     return:
-        count: the number of fractions contain a numerator with more digits than the 
+        count: the number of fractions containing a numerator with more digits than the 
         denominator in the first one-thousand expansions.
     """
     import math

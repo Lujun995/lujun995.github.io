@@ -10,16 +10,15 @@ Is there life after graduate school? Download data of [Science and Engineering P
 **Solution**:
 
 Here I visualize the tables [Doctorate recipients from U.S. colleges and 
-universities: 1958–2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab001.xlsx) and [Doctorate-granting institutions, by state or location and major science and engineering fields of study: 2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx) to illustrate the overall tendencies of Doctoral recipients over years and 
-accross different institutes in the U.S.
+universities: 1958–2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab001.xlsx) and [Doctorate-granting institutions, by state or location and major science and engineering fields of study: 2017](https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx) to illustrate the overall tendencies of Doctoral recipients over years and across different institutes in the U.S.
 
-To achieve the desired outcomes, we need first to set up a local Python environment for our app. Here I use [Anaconda3](https://www.anaconda.com/products/individual), which is a collection of Python packages for scientific programming, and it facilitate our package management. After the installation, we use the Spyder IDE in the Anaconda Navigator. Spyder IDE is a IPython development environment provide many handy interfaces of, for example, editing, variable exploration and project management.
+To achieve the desired outcomes, we need first to set up a local Python environment for our app. Here I use [Anaconda3](https://www.anaconda.com/products/individual), which is a collection of Python packages for scientific programming, and it facilitates our package management. After the installation, we use the Spyder IDE in the Anaconda Navigator. Spyder IDE is an IPython development environment that provides many handy interfaces of, for example, editing, variable exploration and project management.
 
 ![Spyder_IDE](/assets/img/Spyder_IDE.png){: .mx-auto.d-block :}
 
 ![Spyder_IDE2](/assets/img/Spyder_IDE2.png){: .mx-auto.d-block :}
 
-To set up our dashboard, we need several libraries including `pandas`, `plotly.express`, `dash` and `dash_bootstrap_components`. `pandas` is a library focusing on dataset management, `plotly.express` can plot fancy figures, `dash` is used to render a website for our contents and make the figures interactive, and `dash_bootstrap_components` can provide intergated themes for `dash`.
+To set up our dashboard, we need several libraries including `pandas`, `plotly.express`, `dash` and `dash_bootstrap_components`. `pandas` is a library focusing on dataset management, `plotly.express` can plot fancy figures, `dash` is used to render a website for our contents and make the figures interactive, and `dash_bootstrap_components` can provide integrated themes for `dash`.
 
 {% highlight python %}
 #Initialization
@@ -94,14 +93,14 @@ and [Doctorate-granting institutions, by state
 or location and major science and engineering fields of study: 2017]
 (https://ncses.nsf.gov/pubs/nsf19301/assets/data/tables/sed17-sr-tab007.xlsx)
 to illustrate the overall tendencies of Doctoral recipients over years and 
-accross different institutes in the U.S.
+across different institutes in the U.S.
 
 Please also visit my [GitHub Page](https://lujun995.github.io/) and 
 [GitHub repository](https://github.com/Lujun995/BIOS823)
 """
 text_time = """
 The figure below shows the number of PhD degree recipients rapidly increased from 1958 to 2017.
-In 1958, there are less than 9,000 PhD graduate every year all over the United States. 
+In 1958, there are less than 9,000 PhD graduates every year all over the United States. 
 Six decades later, the number of PhD degree recipients increased to 55,000, four times more than
 in 1958.
 
@@ -112,7 +111,7 @@ The figure below shows the number of PhD recipients in different majors in 2017.
 dropdown box below, you can select institutes of interest. If the box is clear, you select
 all the records.
 
-What are the distribution of majors of PhD graduates from Duke, Harvard and 
+What is the distribution of majors of PhD graduates from Duke, Harvard and 
 MIT in 2017? Type Duke, Harvard and Massachusetts Institute of Technology in the box and 
 select the corresponding institutes. Is what you find in line with your impression?
 
@@ -122,12 +121,12 @@ is the winner in engineering.
 """
 {% endhighlight %}
 
-Thereafter, we can start to build our layout of our dashboard. In `dash`, we can use some Python-like code to build HTML-based website. Here, we use an integrated theme "MINTY" in `dash_bootstrap_components` to help us build a beautiful dashboard. While full documentation of `dash` can be found [here](https://dash.plotly.com/), in a nutshell, we need 
+Thereafter, we can start to build the layout of our dashboard. In `dash`, we can use some Python-like code to build an HTML-based website. Here, we use an integrated theme "MINTY" in `dash_bootstrap_components` to help us build a beautiful dashboard. While full documentation of `dash` can be found [here](https://dash.plotly.com/), in a nutshell, we need 
 
 1. Set up the server with "Dash" function and apply our theme MINTY
-2. Set up the layout using a HTML-like Python
-3. If we want to create interative items, we need to add these items in the layout and also specify an "id" so the server can recognize these items. In `dash` dcc (dash core components), there are several items which can accpet value from the users input, such as "Slider", "RangeSlider", multiple choice or single choice "Dropdown" box. There are also some items which contains our text-rich contents and figures, such as "Markdown" and "Graph".
-4. Update the interactive items with our specific Python function, which accepts input from "dash.dcc" and output them back into our dashboard.
+2. Set up the layout using an HTML-like Python
+3. If we want to create interactive items, we need to add these items in the layout and also specify an "id" so the server can recognize these items. In `dash` dcc (dash core components), there are several items that can accept value from the users' input, such as "Slider", "RangeSlider", multiple-choice or single-choice "Dropdown" box. There are also some items that contain our text-rich contents and figures, such as "Markdown" and "Graph".
+4. Update the interactive items with our specific Python function, which accepts input from "dash.dcc" and outputs them back into our dashboard.
 5. Run the server and we can visit our website at http://127.0.0.1:8050/
 
 Here comes the Python code for each step:
@@ -222,5 +221,3 @@ Run the Python file using "runfile", and the following is an illustration of our
 
 
 ![Illustrate](/assets/img/zoom_1.gif){: .mx-auto.d-block :}
-
-

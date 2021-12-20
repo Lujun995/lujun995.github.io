@@ -2,7 +2,7 @@
 layout: post
 title: Deep Learning and Model Interpretation using SHAP
 subtitle: by Lucas Zhang
-tags: [Deep Learning], [SHAP]
+tags: [Deep Learning]
 ---
 
 {: .box-warning} 

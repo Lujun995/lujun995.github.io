@@ -12,7 +12,7 @@ tags: [Final Project]
 
 # 1. Introduction
 
-Predicting patients’ in-hospital mortality is an area of active research. Accurate predictions of clinical outcomes enable clinicians to gauge patients' conditions and facilitate cost-effective management of hospital resources. Given the importance of this issue, in this project we are interested in **using a large-scale, high-resolution MIMIC-III dataset to predict in-hospital mortality**. Cleaning EHR data and defining the variables of interest as the first step lay the foundation of successful modeling in our project. **Particularly, I participated in the final project largely through data cleaning and creating documentation.** Here I focus on sharing my thoughts on data cleaning.
+Predicting patients’ in-hospital mortality is an area of active research. Accurate predictions of clinical outcomes enable clinicians to gauge patients' conditions and facilitate cost-effective management of hospital resources. Given the importance of this issue, in this project we are interested in **using a large-scale, high-resolution MIMIC-III dataset to predict in-hospital mortality**. Cleaning EHR data and defining the variables of interest as the first step lay the foundation of successful modeling in our project. **Particularly, I participated in the project through data cleaning and documentation.** Here, I focus on sharing my thoughts on data cleaning.
 
 Please also visit our [GitHub repository](https://github.com/JiamanBettyWu/bios823_project) for accessing the source code.
 

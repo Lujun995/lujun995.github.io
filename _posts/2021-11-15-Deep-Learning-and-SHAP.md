@@ -2,7 +2,7 @@
 layout: post
 title: Deep Learning and Model Interpretation using SHAP
 subtitle: by Lucas Zhang
-tags: [Data Visualization Challenge]
+tags: [Deep Learning], [SHAP]
 ---
 
 {: .box-warning} 
@@ -12,7 +12,7 @@ tags: [Data Visualization Challenge]
 
 *Lucas Zhang*
 
-Train a deep learning model to classify beetles, cockroaches and dragonflies using these [images](https://www.dropbox.com/s/fn73sj2e6c9rhf6/insects.zip?dl=0). Note: Original images from https://www.insectimages.org/index.cfm. Blog about this, and *explain* how the neural network classified the images using [SHapley Additive exPlanations](https://github.com/slundberg/shap).
+Train a deep learning model to classify beetles, cockroaches and dragonflies using these [images](https://www.dropbox.com/s/fn73sj2e6c9rhf6/insects.zip?dl=0). Original images from https://www.insectimages.org/index.cfm. Explain how the neural network classified the images using [SHapley Additive exPlanations](https://github.com/slundberg/shap).
 
 **Solution:**
 

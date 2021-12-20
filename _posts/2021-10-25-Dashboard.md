@@ -1,11 +1,12 @@
 ---
 layout: post
-title: Dashboard using Python
+title: Dashboarding in Python
 subtitle: by Lucas Zhang
-tags: [Data Visualization Challenge]
+tags: [Data Visualization]
 ---
 
-Is there life after graduate school? Download data of [Science and Engineering PhDs awarded in the US](https://ncses.nsf.gov/pubs/nsf19301/data). Do some analysis in `pandas`. Make a [dashboard visualization](https://pyviz.org/dashboarding/) of a few interesting aspects of the data.
+Do some data analyses using data from [Science and Engineering PhDs awarded in the US](https://ncses.nsf.gov/pubs/nsf19301/data). Make a [dashboard visualization](https://pyviz.org/dashboarding/) of a few interesting aspects of the data.
+
 
 **Solution**:
 

@@ -195,7 +195,7 @@ A\* Search leverages a heuristic, which provides an informed estimate of the cos
 
 In this post, we'll explore the key concepts behind A\* Search and employ A\* Search for solving 8-Puzzle. We will use two types of Heuristics: the Number of Wrong Tiles, and the Manhattan Distance.
 
-Manhattan Distance $= |x_current - x_target| + |y_current - y_target|$, where we calculate the sum of the horizontal and vertical distances it is away from its desired goal position.
+Manhattan Distance = |x_current - x_target| + |y_current - y_target|, where we calculate the sum of the horizontal and vertical distances it is away from its desired goal position.
 
 *  Heuristics
 

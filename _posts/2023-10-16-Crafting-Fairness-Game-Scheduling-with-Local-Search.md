@@ -193,17 +193,31 @@ current_best.print()
 Using the algorithms above, we can find a quite balanced schedule for this board game.
 
 ** Replay Summary **
+
 A: B: 3, C: 3, D: 3, E: 3, F: 3, G: 3, H: 4, I: 2, J: 3, K: 3, L: 3, M: 3, 
+
 B: A: 3, C: 3, D: 3, E: 3, F: 3, G: 2, H: 2, I: 3, J: 3, K: 2, L: 3, M: 3, 
+
 C: A: 3, B: 3, D: 3, E: 3, F: 3, G: 3, H: 4, I: 3, J: 3, K: 4, L: 3, M: 4, 
+
 D: A: 3, B: 3, C: 3, E: 3, F: 3, G: 3, H: 3, I: 3, J: 3, K: 3, L: 3, M: 3, 
-E: A: 3, B: 3, C: 3, D: 3, F: 3, G: 3, H: 3, I: 3, J: 3, K: 3, L: 3, M: 3, 
+
+E: A: 3, B: 3, C: 3, D: 3, F: 3, G: 3, H: 3, I: 3, J: 3, K: 3, L: 3, M: 3,
+ 
 F: A: 3, B: 3, C: 3, D: 3, E: 3, G: 3, H: 3, I: 3, J: 3, K: 3, L: 3, M: 3, 
+
 G: A: 3, B: 2, C: 3, D: 3, E: 3, F: 3, H: 4, I: 3, J: 3, K: 3, L: 3, M: 3, 
+
 H: A: 4, B: 2, C: 4, D: 3, E: 3, F: 3, G: 4, I: 3, J: 3, K: 3, L: 4, M: 3, 
+
 I: A: 2, B: 3, C: 3, D: 3, E: 3, F: 3, G: 3, H: 3, J: 4, K: 2, L: 3, M: 4, 
+
 J: A: 3, B: 3, C: 3, D: 3, E: 3, F: 3, G: 3, H: 3, I: 4, K: 2, L: 3, M: 3, 
+
 K: A: 3, B: 2, C: 4, D: 3, E: 3, F: 3, G: 3, H: 3, I: 2, J: 2, L: 3, M: 2, 
-L: A: 3, B: 3, C: 3, D: 3, E: 3, F: 3, G: 3, H: 4, I: 3, J: 3, K: 3, M: 2, 
+
+L: A: 3, B: 3, C: 3, D: 3, E: 3, F: 3, G: 3, H: 4, I: 3, J: 3, K: 3, M: 2,
+ 
 M: A: 3, B: 3, C: 4, D: 3, E: 3, F: 3, G: 3, H: 3, I: 4, J: 3, K: 2, L: 2, 
+
 Number of matches with identical four players: 0

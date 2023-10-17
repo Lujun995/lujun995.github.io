@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Solving 8-Puzzle Using Searching Algorithms
+title: Solving 8 Puzzle Using Searching Algorithms
 subtitle: by Lucas Zhang
 cover-img: /assets/img/8Puzzle.png
 thumbnail-img: /assets/img/8Puzzle.png
@@ -8,9 +8,9 @@ share-img: /assets/img/8Puzzle.png
 tags: [Searching] [Artificial Intelligence]
 ---
 
-### The 8-Puzzle
-
 The 8-Puzzle is a captivating sliding tile game, with the 15-Puzzle being its more common counterpart.
+
+### The 8-Puzzle
 
 This puzzle comprises a 3x3 grid filled with numbered tiles, except for one missing tile, often denoted by an empty space or a period. The ultimate objective is to rearrange the tiles in a specific order while adhering to the rule of sliding only one tile into the empty space at a time.
 

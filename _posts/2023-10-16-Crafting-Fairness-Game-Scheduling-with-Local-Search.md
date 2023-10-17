@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Crafting Fairness: Board Game League Scheduling with Local Search
+title: Crafting Fairness, Board Game League Scheduling with Local Search
 subtitle: by Lucas Zhang
 cover-img: /assets/img/Game Schedule.png
 thumbnail-img: /assets/img/Game Schedule.png

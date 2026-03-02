@@ -6,7 +6,7 @@ subtitle: Welcome to My Site!
 
 My name is Lucas Zhang. A self-motivated researcher in pursuit of innovative solutions to complicated but fascinating biological universe.
 
-- Experienced statistician in genetics and clinical trials.
+- Experienced statistician in real-world evidence and clinical trials.
 - Published author, skilled programmer, quick learner, and team player.
 - Dog person!
 
